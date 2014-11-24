@@ -4,6 +4,7 @@
 #include <string.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 using std::string;
@@ -90,6 +91,7 @@ bool Dictionary::addEntry(WORD word){
 	if(!this -> isFull()){
 
 		Entry newEntry;
+
 		newEntry.word = word;
 		newEntry.freq = 1;
 
@@ -218,6 +220,27 @@ void Dictionary::getWords(){
 	}
 }
 
+void Dictionary::sortWords(){
+	/* This method uses an insertion-sort procedure to sort the Entries in the
+	 * Dictionary in alphabetical order. */
+
+	Entry tmp;
+
+	for(int i = 1; i < this -> word_index; i++){
+
+		int j = (i - 1);
+
+		if((this -> entries[j]).word > (this-> entries[i]).word){
+
+			tmp = this -> entries[j];
+			this -> entries[j] = this -> entries[i];
+			this -> entries[i] = tmp;
+
+			this -> sortWords();	
+		}
+	}
+}
+
 void Dictionary::dumpWords(){
 	/* This method provides a quick-and-easy way of printing the Entries of the
 	 * Dictionary at any given time.  Not very pretty to look at, though, so I
@@ -283,6 +306,7 @@ int main(){
 	Dictionary dict;
 
 	dict.getWords();
+	dict.sortWords();
 	dict.dumpWords();
 //	dict.printWords();
 }
