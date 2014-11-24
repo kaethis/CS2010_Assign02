@@ -1,11 +1,11 @@
-prog: prog.o
-	g++ prog.o -g -o prog
+dict: dictionary.o main.o
+	g++ dictionary.o main.o -g -o dict
 
-prog.o: prog.cpp
-	g++ -g -c prog.cpp
+dict.o: dictionary.cpp main.cpp
+	g++ -g -c dictionary.cpp main.cpp
 
 clean:
-	rm *.o prog
+	rm *.o dict 
 
 archive:
 	
